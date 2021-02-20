@@ -14,7 +14,8 @@ class CoinsController extends Controller
      */
     public function index()
     {
-        //
+        $coins = Coin::all();
+        return view('coins.index', ['coins' => $coins]);
     }
 
     /**
@@ -40,7 +41,6 @@ class CoinsController extends Controller
         $coin->short_name = $arr['short_name'];
         $coin->name = $arr['name'];
         $coin->save();
-
         return 'Saved coin';
     }
 
