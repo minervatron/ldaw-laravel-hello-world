@@ -50,9 +50,9 @@ class CoinsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Coin $coin)
     {
-        //
+        return view('coins.show', ['coin' => $coin]);
     }
 
     /**
@@ -61,9 +61,9 @@ class CoinsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Coin $coin)
     {
-        //
+        return view('coins.edit', ['coin' => $coin]);
     }
 
     /**
@@ -73,9 +73,13 @@ class CoinsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Coin $coin)
     {
-        //
+        $arr = $request->input();
+        $coin->short_name = $arr['short_name'];
+        $coin->name = $arr['name'];
+        $coin->save();
+        return redirect()->route('coins.index');
     }
 
     /**
@@ -84,8 +88,9 @@ class CoinsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Coin $coin)
     {
-        //
+        $coin->delete();
+        return redirect()->route('coins.index');
     }
 }
